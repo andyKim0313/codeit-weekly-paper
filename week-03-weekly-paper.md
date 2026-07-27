@@ -1,8 +1,8 @@
 # 3주차 위클리 페이퍼
 
 > **주제:** 결정 트리, 부스팅, PCA와 요인 분석  
-> **작성자:** 김원태  
-> **작성일:** 2026년 7월 24일
+> **작성자:** 이름을 입력하세요  
+> **작성일:** 2026년 7월 27일
 
 ## 목차
 
@@ -40,9 +40,9 @@
 
 분류 문제에서 지니 불순도는 다음과 같이 계산한다.
 
-$$
+```math
 Gini(t)=1-\sum_{k=1}^{K}p_{k}^{2}
-$$
+```
 
 - $p_k$: 노드 $t$에서 클래스 $k$가 차지하는 비율
 - 한 클래스만 존재하면 지니 불순도는 0이다.
@@ -50,12 +50,9 @@ $$
 
 분할 전후의 불순도 감소량은 다음과 같이 표현할 수 있다.
 
-$$
-\Delta I =
-I(t)
-- \frac{n_L}{n_t}I(t_L)
-- \frac{n_R}{n_t}I(t_R)
-$$
+```math
+\Delta I = I(t) - \frac{n_L}{n_t}I(t_L) - \frac{n_R}{n_t}I(t_R)
+```
 
 결정 트리는 일반적으로 각 노드에서 $\Delta I$가 가장 커지는 분할을 선택한다. 중요한 점은 이 과정이 미래의 모든 분할을 한꺼번에 고려하는 것이 아니라 **현재 노드에서 가장 좋아 보이는 분할을 선택하는 탐욕적(greedy) 방식**이라는 것이다.
 
@@ -145,9 +142,9 @@ $$
 
 부스팅의 일반적인 가법 모형은 다음과 같이 표현할 수 있다.
 
-$$
+```math
 F_M(x)=F_0(x)+\sum_{m=1}^{M}\eta\alpha_m h_m(x)
-$$
+```
 
 - $F_0(x)$: 초기 예측
 - $h_m(x)$: $m$번째 약한 학습기
@@ -204,22 +201,15 @@ $$
 
 Gradient Boosting은 손실 함수를 줄이는 방향을 함수 공간에서 단계적으로 찾아가는 방법이다. $m$번째 단계에서 각 데이터의 의사 잔차는 다음과 같다.
 
-$$
-r_{im}
-=
--\left[
-\frac{\partial L(y_i,F(x_i))}
-{\partial F(x_i)}
-\right]_{F=F_{m-1}}
-$$
+```math
+r_{im} = -\left[\frac{\partial L(y_i,F(x_i))}{\partial F(x_i)}\right]_{F=F_{m-1}}
+```
 
 새로운 약한 학습기 $h_m(x)$가 이 의사 잔차를 예측하도록 학습한 후 기존 모델에 더한다.
 
-$$
-F_m(x)
-=
-F_{m-1}(x)+\eta\gamma_mh_m(x)
-$$
+```math
+F_m(x) = F_{m-1}(x)+\eta\gamma_mh_m(x)
+```
 
 평균제곱오차를 사용할 때 음의 기울기는 실제값과 예측값의 차이인 일반적인 잔차와 같다. 그러나 다른 손실 함수에서는 단순 잔차가 아니라 해당 손실 함수의 기울기를 학습한다. Gradient Boosting이 회귀와 분류를 비롯한 다양한 문제에 적용될 수 있는 이유가 여기에 있다.
 
@@ -385,12 +375,9 @@ PCA는 원래 변수들의 선형결합으로 새로운 축인 주성분을 만�
 
 첫 번째 주성분의 방향 $w_1$은 다음과 같이 표현할 수 있다.
 
-$$
-w_1
-=
-\underset{\lVert w\rVert=1}{\operatorname{argmax}}
-\operatorname{Var}(Xw)
-$$
+```math
+w_1 = \underset{\lVert w\rVert=1}{\operatorname{argmax}} \operatorname{Var}(Xw)
+```
 
 두 번째 이후의 주성분은 앞선 주성분과 직교한다는 조건을 추가한다.
 
@@ -416,9 +403,9 @@ $$
 
 요인 분석은 여러 관측변수의 상관관계가 소수의 관측되지 않은 잠재 요인에 의해 만들어졌다고 가정한다. 관측변수 $x$를 다음과 같은 생성 모형으로 표현할 수 있다.
 
-$$
+```math
 x=\mu+\Lambda f+\epsilon
-$$
+```
 
 - $\mu$: 관측변수의 평균
 - $f$: 관측되지 않은 공통 요인
@@ -427,11 +414,9 @@ $$
 
 공분산 구조는 다음과 같이 분해된다.
 
-$$
-\operatorname{Cov}(x)
-=
-\Lambda\Phi\Lambda^{T}+\Psi
-$$
+```math
+\operatorname{Cov}(x)=\Lambda\Phi\Lambda^{T}+\Psi
+```
 
 - $\Lambda\Phi\Lambda^T$: 여러 관측변수가 공유하는 공통분산
 - $\Psi$: 각 변수에만 존재하는 고유분산과 오차분산
@@ -564,4 +549,3 @@ PCA와 FA는 모두 데이터의 차원을 줄일 수 있지만 출발점이 다
 10. Tony Duan et al., [NGBoost: Natural Gradient Boosting for Probabilistic Prediction](https://proceedings.mlr.press/v119/duan20a.html), ICML, 2020.
 11. scikit-learn, [Decomposing Signals in Components](https://scikit-learn.org/stable/modules/decomposition.html)
 12. scikit-learn, [FactorAnalysis API](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.FactorAnalysis.html)
-
